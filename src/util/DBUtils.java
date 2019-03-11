@@ -58,7 +58,7 @@ public class DBUtils {
     }
 
     public static List<Product> queryProduct(Connection conn) throws SQLException {
-        String sql = "Select a.Code, a.Name, a.Price from product a ";
+        String sql = "Select a.CODE, Name, a.Price from product a ";
 
         PreparedStatement pstm = conn.prepareStatement(sql);
 
