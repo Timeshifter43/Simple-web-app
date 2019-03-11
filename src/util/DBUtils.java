@@ -76,6 +76,7 @@ public class DBUtils {
     }
 
     public static List<Product> queryProduct(Connection conn) throws SQLException {
+
         String sql = "Select a.CODE, Name, a.Price from product a ";
 
         PreparedStatement pstm = conn.prepareStatement(sql);
@@ -86,13 +87,17 @@ public class DBUtils {
             String code = rs.getString("Code");
             String name = rs.getString("Name");
             float price = rs.getFloat("Price");
+
+            System.out.println(code+"," + name + "," + price + "");
             Product product = new Product();
             product.setCode(code);
             product.setName(name);
             product.setPrice(price);
             list.add(product);
+
         }
         return list;
+
     }
 
     public static Product findProduct(Connection conn, String code) throws SQLException {

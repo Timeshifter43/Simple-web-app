@@ -43,10 +43,12 @@ public class ProductListServlet extends HttpServlet {
         request.setAttribute("errorString", errorString);
         request.setAttribute("productList", list);
 
+
         // Forward to /WEB-INF/views/productListView.jsp
         RequestDispatcher dispatcher = request.getServletContext()
                 .getRequestDispatcher("/WEB-INF/views/productListView.jsp");
         dispatcher.forward(request, response);
+
     }
 
     @Override
@@ -54,5 +56,6 @@ public class ProductListServlet extends HttpServlet {
             throws ServletException, IOException {
         doGet(request, response);
     }
+
 
 }
