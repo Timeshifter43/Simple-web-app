@@ -13,6 +13,22 @@ import java.util.List;
 
 public class DBUtils {
 
+    public static UserAccount regUser(Connection conn,String userName,String password) throws SQLException{
+        String sql = "insert into user_account(a.USER_NAME,a.password) values (?,?) ";
+        PreparedStatement pstm = conn.prepareStatement(sql);
+        pstm.setString(1,userName);
+        pstm.setString(2,password);
+        ResultSet rs = pstm.executeQuery();
+
+        if(rs.next()){
+            UserAccount user = new UserAccount();
+            user.setUserName(userName);
+            user.setPassword(password);
+            return user;
+        }
+        return null;
+    }
+
     public static UserAccount findUser(Connection conn, //
                                        String userName, String password) throws SQLException {
 
