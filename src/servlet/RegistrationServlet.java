@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -30,7 +31,7 @@ public class RegistrationServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Connection conn = MyUtils.getStoredConnection(request);
+
         String userName = request.getParameter("userName");
         String password = request.getParameter("password");
 
@@ -42,7 +43,7 @@ public class RegistrationServlet extends HttpServlet {
             hasError = true;
             errorString = "Required username and password!";
         } else {
-
+            Connection conn = MyUtils.getStoredConnection(request);
             try {
                 // Inserting data the user in the DB.
                 user = DBUtils.regUser(conn, userName, password);
@@ -55,6 +56,15 @@ public class RegistrationServlet extends HttpServlet {
                 e.printStackTrace();
                 hasError = true;
                 errorString = e.getMessage();
+            }
+            // If error, forward to /WEB-INF/views/home.jsp
+
+            if(hasError) {
+                // Redirect to userInfo page.
+                RequestDispatcher dispatcher //
+                        = this.getServletContext().getRequestDispatcher("/WEB-INF/views/homeView.jsp");
+
+                dispatcher.forward(request, response);
             }
         }
 

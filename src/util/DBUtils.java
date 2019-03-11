@@ -14,7 +14,9 @@ import java.util.List;
 public class DBUtils {
 
     public static UserAccount regUser(Connection conn,String userName,String password) throws SQLException{
+
         String sql = "insert into user_account(a.USER_NAME,a.password) values (?,?) ";
+
         PreparedStatement pstm = conn.prepareStatement(sql);
         pstm.setString(1,userName);
         pstm.setString(2,password);
